@@ -4,4 +4,5 @@ DAO based on FEVM
 # LICENSE
 MIT
 
-# HACK FEVM by ETHGlobal
+# Schedule
+HACK FEVM by ETHGlobal - 18 - 20 November 2022
