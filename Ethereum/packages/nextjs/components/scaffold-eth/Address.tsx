@@ -67,7 +67,8 @@ export const Address = ({ address, disableAddressLink, format, size = "base" }: 
   }
 
   const blockExplorerAddressLink = getBlockExplorerAddressLink(getTargetNetwork(), address);
-  let displayAddress = address?.slice(0, 5) + "..." + address?.slice(-4);
+  // let displayAddress = address?.slice(0, 5) + "..." + address?.slice(-4);
+  let displayAddress = address;
 
   if (ens) {
     displayAddress = ens;

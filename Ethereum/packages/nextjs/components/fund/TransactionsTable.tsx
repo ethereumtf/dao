@@ -13,11 +13,11 @@ export const TransactionsTable = ({ blocks, transactionReceipts, isLoading }: Tr
         <thead>
           <tr>
             <th className="bg-primary">Transaction Hash</th>
-            {/* <th className="bg-primary">Function Called</th> */}
+            <th className="bg-primary">Function Called</th>
             <th className="bg-primary">Block Number</th>
             <th className="bg-primary">Time Mined</th>
-            <th className="bg-primary">Participant</th>
-            {/* <th className="bg-primary">To</th> */}
+            <th className="bg-primary">From</th>
+            <th className="bg-primary">To</th>
             <th className="bg-primary text-end">Value ({targetNetwork.nativeCurrency.symbol})</th>
           </tr>
         </thead>
@@ -46,18 +46,18 @@ export const TransactionsTable = ({ blocks, transactionReceipts, isLoading }: Tr
                     <td className="w-1/12">
                       <TransactionHash hash={tx.hash} />
                     </td>
-                    {/* <td className="w-2/12">
+                    <td className="w-2/12">
                       {tx.functionName === "0x" ? "" : <span className="mr-1">{tx.functionName}</span>}
                       {functionCalled !== "0x" && (
                         <span className="badge badge-primary font-bold text-xs">{functionCalled}</span>
                       )}
-                    </td> */}
+                    </td>
                     <td className="w-1/12">{block.number?.toString()}</td>
                     <td className="w-2/12">{timeMined}</td>
                     <td className="w-2/12">
-                      <Address address={tx.from} />
+                      <Address address={tx.from} size="sm" />
                     </td>
-                    {/* <td className="w-2/12">
+                    <td className="w-2/12">
                       {!receipt?.contractAddress ? (
                         tx.to && <Address address={tx.to} size="sm" />
                       ) : (
@@ -66,7 +66,7 @@ export const TransactionsTable = ({ blocks, transactionReceipts, isLoading }: Tr
                           <small className="absolute top-4 left-4">(Contract Creation)</small>
                         </div>
                       )}
-                    </td> */}
+                    </td>
                     <td className="text-right">
                       {formatEther(tx.value)} {targetNetwork.nativeCurrency.symbol}
                     </td>

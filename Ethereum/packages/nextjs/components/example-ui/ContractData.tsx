@@ -30,68 +30,37 @@ export const ContractData = () => {
     functionName: "greeting",
   });
 
-  const { data: currentVoting, isLoading: isVotingLoading } = useScaffoldContractRead({
-    contractName: "YourContract",
-    functionName: "voting",
-  });
-
-  // useScaffoldEventSubscriber({
-  //   contractName: "YourContract",
-  //   eventName: "GreetingChange",
-  //   listener: logs => {
-  //     logs.map(log => {
-  //       const { greetingSetter, value, premium, newGreeting } = log.args;
-  //       console.log("📡 GreetingChange event", greetingSetter, value, premium, newGreeting);
-  //     });
-  //   },
-  // });
-
   useScaffoldEventSubscriber({
     contractName: "YourContract",
-    eventName: "VotingChange",
+    eventName: "GreetingChange",
     listener: logs => {
       logs.map(log => {
-        const { votingSetter, value, premium, newVoting } = log.args;
-        console.log("📡 VotingChange event", votingSetter, value, premium, newVoting);
+        const { greetingSetter, value, premium, newGreeting } = log.args;
+        console.log("📡 GreetingChange event", greetingSetter, value, premium, newGreeting);
       });
     },
   });
 
-  // const {
-  //   data: myGreetingChangeEvents,
-  //   isLoading: isLoadingEvents,
-  //   error: errorReadingEvents,
-  // } = useScaffoldEventHistory({
-  //   contractName: "YourContract",
-  //   eventName: "GreetingChange",
-  //   fromBlock: process.env.NEXT_PUBLIC_DEPLOY_BLOCK ? BigInt(process.env.NEXT_PUBLIC_DEPLOY_BLOCK) : 0n,
-  //   filters: { greetingSetter: address },
-  //   blockData: true,
-  // });
-
   const {
-    data: myVotingChangeEvents,
+    data: myGreetingChangeEvents,
     isLoading: isLoadingEvents,
     error: errorReadingEvents,
   } = useScaffoldEventHistory({
     contractName: "YourContract",
-    eventName: "VotingChange",
+    eventName: "GreetingChange",
     fromBlock: process.env.NEXT_PUBLIC_DEPLOY_BLOCK ? BigInt(process.env.NEXT_PUBLIC_DEPLOY_BLOCK) : 0n,
-    filters: { votingSetter: address },
+    filters: { greetingSetter: address },
     blockData: true,
   });
 
-  // console.log("Events:", isLoadingEvents, errorReadingEvents, myGreetingChangeEvents);
-  console.log("Events:", isLoadingEvents, errorReadingEvents, myVotingChangeEvents);
+  console.log("Events:", isLoadingEvents, errorReadingEvents, myGreetingChangeEvents);
 
   const { data: yourContract } = useScaffoldContract({ contractName: "YourContract" });
   console.log("yourContract: ", yourContract);
 
   const { showAnimation } = useAnimationConfig(totalCounter);
 
-  //const showTransition = transitionEnabled && !!currentGreeting && !isGreetingLoading;
-
-  const showTransition = transitionEnabled && !!currentVoting && !isVotingLoading;
+  const showTransition = transitionEnabled && !!currentGreeting && !isGreetingLoading;
 
   useEffect(() => {
     if (transitionEnabled && containerRef.current && greetingRef.current) {
@@ -109,29 +78,22 @@ export const ContractData = () => {
         }`}
       >
         <div className="flex justify-between w-full">
-          <div className="text-2xl font-bold text-primary">DAO Report</div>
-
           <div className="bg-secondary border border-primary rounded-xl flex">
-            <div className="p-2 py-1 border border-primary flex">Total count</div>
+            <div className="p-2 py-1 border-r border-primary flex items-end">Voting count</div>
             <div className="text-4xl text-right min-w-[3rem] px-2 py-1 flex justify-end font-bai-jamjuree">
               {totalCounter?.toString() || "0"}
             </div>
           </div>
         </div>
 
-        <div className="mt-3 border border-primary bg-neutral rounded-3xl text-secondary  overflow-hidden whitespace-nowrap w-full uppercase tracking-tighter font-bai-jamjuree leading-tight">
-          
-          <div className="text-2xl font-bold text-primary">{currentVoting}</div> <br/>
-          
-          <div className="relative overflow-x-hidden" ref={containerRef}>
-
-            <div className="text-3xl text-primary">{currentGreeting}</div>
-
-            <div className="text-3xl text-primary">{currentVoting}</div>
-
+        <div className="text-3xl mt-8 border border-primary bg-neutral rounded-3xl text-secondary ">
+          <div className="relative" ref={containerRef}>
+            {/* for speed calculating purposes */}
+            <div className="" ref={greetingRef}>
+              <div className="">{currentGreeting}</div>
+            </div>
           </div>
         </div>
-
 
       </div>
     </div>
