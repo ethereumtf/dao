@@ -45,15 +45,34 @@ export const ContractInteraction = () => {
         <div className="flex flex-col mt-6 px-7 py-8 bg-base-200 opacity-80 rounded-2xl shadow-lg border-2 border-primary">
           <span className="text-3xl sm:text-4xl text-black">DAO vote!</span>
 
-          <div className="mt-8 flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-5">
+          <div className="">
             <input
               type="text"
-              placeholder="Write your greeting here"
+              placeholder="Amount of Ethereum"
               className="input font-bai-jamjuree w-full px-5 bg-[url('/assets/gradient-bg.png')] bg-[length:100%_100%] border border-primary text-lg sm:text-2xl placeholder-white uppercase"
               onChange={e => setNewGreeting(e.target.value)}
             />
 
-            <div className="flex rounded-full border border-primary p-1 flex-shrink-0">
+          <div className="flex flex-col sm:flex-row gap-2 sm:gap-5">
+            <label className="font-white w-24 flex items-center gap-1 hover:gap-2 transition-all tracking-widest flex-row-reverse">
+              <input type="checkbox" name="option1" value="option1" className="" />
+              Ethereum
+            </label>
+            <label className="font-white w-24 flex items-center gap-1 hover:gap-2 transition-all tracking-widest flex-row-reverse">
+              <input type="checkbox" name="option2" value="option2" className="" />
+              Tether USD
+            </label>
+            <label className="font-white w-24 flex items-center gap-1 hover:gap-2 transition-all tracking-widest flex-row-reverse">
+              <input type="checkbox" name="option3" value="option3" className="" />
+              USD Coin
+            </label>
+            <label className="font-white w-24 flex items-center gap-1 hover:gap-2 transition-all tracking-widest flex-row-reverse">
+              <input type="checkbox" name="option4" value="option4" className="" />
+              Binance USD
+            </label>
+          </div>
+
+            <div className="flex rounded-full border-primary">
               <div className="flex rounded-full border-2 border-primary p-1">
                 <button
                   className={`btn btn-primary rounded-full capitalize font-normal font-white w-24 flex items-center gap-1 hover:gap-2 transition-all tracking-widest ${
@@ -63,7 +82,7 @@ export const ContractInteraction = () => {
                 >
                   {!isLoading && (
                     <>
-                      Send <ArrowSmallRightIcon className="w-3 h-3 mt-0.5" />
+                      Vote your choice <ArrowSmallRightIcon className="w-3 h-3 mt-0.5" />
                     </>
                   )}
                 </button>

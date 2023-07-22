@@ -14,12 +14,10 @@ const Home: NextPage = () => {
             <span className="block text-4xl font-bold">DAO</span>
           </h1>
           <p className="text-center text-lg">
-            Get started by editing{" "}
-            <code className="italic bg-base-300 text-base font-bold">packages/nextjs/pages/index.tsx</code>
+            <span className="block text-2xl mb-2">Optimal DAO for portfolio investments</span>
           </p>
           <p className="text-center text-lg">
-            Edit your smart contract <code className="italic bg-base-300 text-base font-bold">YourContract.sol</code> in{" "}
-            <code className="italic bg-base-300 text-base font-bold">packages/hardhat/contracts</code>
+            <span className="block text-2xl mb-2">Staking & Social intelligence!</span>
           </p>
         </div>
 
