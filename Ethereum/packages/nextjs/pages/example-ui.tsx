@@ -8,7 +8,7 @@ const ExampleUI: NextPage = () => {
     <>
       <MetaHeader
         title="Example UI | Scaffold-ETH 2"
-        description="Example UI created with 🏗 Scaffold-ETH 2, showcasing some of its features."
+        description="DAO vote page"
       >
         {/* We are importing the font this way to lighten the size of SE2. */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
