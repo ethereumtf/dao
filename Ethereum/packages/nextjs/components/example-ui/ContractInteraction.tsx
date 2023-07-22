@@ -8,16 +8,47 @@ import { useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
 export const ContractInteraction = () => {
   const [visible, setVisible] = useState(true);
   const [newGreeting, setNewGreeting] = useState("");
+  const [newVoting, setNewVoting] = useState("");
+  const [selectedOptions, setSelectedOptions] = useState([]);
+
+  // const { writeAsync, isLoading } = useScaffoldContractWrite({
+  //   contractName: "YourContract",
+  //   functionName: "setGreeting",
+  //   args: [newGreeting],
+  //   value: "0.01",
+  //   onBlockConfirmation: txnReceipt => {
+  //     console.log("📦 Transaction blockHash", txnReceipt.blockHash);
+  //   },
+  // });
 
   const { writeAsync, isLoading } = useScaffoldContractWrite({
     contractName: "YourContract",
-    functionName: "setGreeting",
-    args: [newGreeting],
+    functionName: "setVoting",
+    args: [newVoting],
     value: "0.01",
     onBlockConfirmation: txnReceipt => {
       console.log("📦 Transaction blockHash", txnReceipt.blockHash);
     },
   });
+
+
+  function handleCheckboxChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+    const selectedValues = Array.from(checkboxes).map((checkbox) => checkbox.value);
+    alert(selectedValues);
+    const isChecked = e.target.checked;
+    console.log(`Checkbox is ${isChecked ? "checked" : "unchecked"}`);
+  }
+
+  // const handleVote = () => {
+
+  //   const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+  //   const selectedValues = Array.from(checkboxes).map((checkbox) => checkbox.value);
+
+  //   alert(selectedValues);
+  //   setSelectedOptions(selectedValues);
+  //   setNewVote(`Voted for ${selectedValues.join(", ")}!`);
+  // };
 
   return (
     <div className="flex bg-base-300 relative pb-10">
@@ -53,24 +84,41 @@ export const ContractInteraction = () => {
               onChange={e => setNewGreeting(e.target.value)}
             />
 
-          <div className="flex flex-col sm:flex-row gap-2 sm:gap-5">
+          <div className="flex flex-col sm:flex-row gap-2 sm:gap-5" onChange={handleCheckboxChange} >
             <label className="font-white w-24 flex items-center gap-1 hover:gap-2 transition-all tracking-widest flex-row-reverse">
-              <input type="checkbox" name="option1" value="option1" className="" />
+              <input type="checkbox" name="option1" value="0" className="" />
               Ethereum
             </label>
             <label className="font-white w-24 flex items-center gap-1 hover:gap-2 transition-all tracking-widest flex-row-reverse">
-              <input type="checkbox" name="option2" value="option2" className="" />
+              <input type="checkbox" name="option2" value="1" className="" />
               Tether USD
             </label>
             <label className="font-white w-24 flex items-center gap-1 hover:gap-2 transition-all tracking-widest flex-row-reverse">
-              <input type="checkbox" name="option3" value="option3" className="" />
+              <input type="checkbox" name="option3" value="2" className="" />
               USD Coin
             </label>
             <label className="font-white w-24 flex items-center gap-1 hover:gap-2 transition-all tracking-widest flex-row-reverse">
-              <input type="checkbox" name="option4" value="option4" className="" />
+              <input type="checkbox" name="option4" value="3" className="" />
               Binance USD
             </label>
           </div>
+
+            {/* <div className="flex rounded-full border-primary">
+              <div className="flex rounded-full border-2 border-primary p-1">
+                <button
+                  className={`btn btn-primary rounded-full capitalize font-normal font-white w-24 flex items-center gap-1 hover:gap-2 transition-all tracking-widest ${
+                    isLoading ? "loading" : ""
+                  }`}
+                  onClick={() => writeAsync()}
+                >
+                  {!isLoading && (
+                    <>
+                      Vote your choice <ArrowSmallRightIcon className="w-3 h-3 mt-0.5" />
+                    </>
+                  )}
+                </button>
+              </div>
+            </div> */}
 
             <div className="flex rounded-full border-primary">
               <div className="flex rounded-full border-2 border-primary p-1">
@@ -88,37 +136,7 @@ export const ContractInteraction = () => {
                 </button>
               </div>
             </div>
-          </div>
 
-
-          <div className="mt-8 flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-5">
-            <input type="number" min="0" placeholder="Amount of token" className="input font-bai-jamjuree w-full px-5 bg-[url('/assets/gradient-bg.png')] bg-[length:100%_100%] border border-primary text-lg sm:text-2xl placeholder-white uppercase" />
-          </div>
-
-
-          <div className="flex flex-col sm:flex-row gap-2 sm:gap-5">
-            <label className="font-white w-24 flex items-center gap-1 hover:gap-2 transition-all tracking-widest flex-row-reverse">
-              <input type="checkbox" name="option1" value="option1" className="" />
-              Ethereum
-            </label>
-            <label className="font-white w-24 flex items-center gap-1 hover:gap-2 transition-all tracking-widest flex-row-reverse">
-              <input type="checkbox" name="option2" value="option2" className="" />
-              Tether USD
-            </label>
-            <label className="font-white w-24 flex items-center gap-1 hover:gap-2 transition-all tracking-widest flex-row-reverse">
-              <input type="checkbox" name="option3" value="option3" className="" />
-              USD Coin
-            </label>
-            <label className="font-white w-24 flex items-center gap-1 hover:gap-2 transition-all tracking-widest flex-row-reverse">
-              <input type="checkbox" name="option4" value="option4" className="" />
-              Binance USD
-            </label>
-          </div>
-
-          <div>
-            <button className="btn btn-primary rounded-full capitalize font-normal font-white w-24 flex items-center gap-1 hover:gap-2 transition-all tracking-widest">
-              Vote
-            </button>
           </div>
 
           <div className="mt-4 flex gap-2 items-start">

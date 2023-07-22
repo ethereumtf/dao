@@ -15,15 +15,24 @@ import "hardhat/console.sol";
 contract YourContract {
 	// State Variables
 	address public immutable owner;
-	string public greeting = "DAO voting result!";
+	string public greeting = "DAO result!";
+	string public voting = "Voting values";
 	bool public premium = false;
 	uint256 public totalCounter = 0;
 	mapping(address => uint) public userGreetingCounter;
+	mapping(address => uint) public userVotingCounter;
 
 	// Events: a way to emit log statements from smart contract that can be listened to by external parties
 	event GreetingChange(
 		address indexed greetingSetter,
 		string newGreeting,
+		bool premium,
+		uint256 value
+	);
+
+	event VotingChange(
+		address indexed votingSetter,
+		string newVoting,
 		bool premium,
 		uint256 value
 	);
@@ -69,6 +78,33 @@ contract YourContract {
 
 		// emit: keyword used to trigger an event
 		emit GreetingChange(msg.sender, _newGreeting, msg.value > 0, 0);
+	}
+
+
+	function setVoting(string memory _newVoting) public payable {
+		// Print data to the hardhat chain console. Remove when deploying to a live network.
+		console.log(
+			"Setting new voting '%s' from %s",
+			_newVoting,
+			msg.sender
+		);
+
+		// Change state variables
+		voting = _newVoting;
+		totalCounter += 1;
+		userVotingCounter[msg.sender] += 1;
+
+		// msg.value: built-in global variable that represents the amount of ether sent with the transaction
+		if (msg.value > 0) {
+			premium = true;
+		} else {
+			premium = false;
+		}
+
+		console.log("Voting is done!", _newVoting);
+
+		// emit: keyword used to trigger an event
+		emit VotingChange(msg.sender, _newVoting, msg.value > 0, 0);
 	}
 
 	/**
